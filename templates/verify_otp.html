@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تایید کد OTP - پروژه دماوند انرژی عسلویه</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f4f4f4;
+            font-family: 'Vazirmatn', sans-serif;
+        }
+
+        .container {
+            max-width: 500px;
+            margin-top: 100px;
+        }
+
+        .header {
+            background-color: #1a237e;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: #424242;
+        }
+
+        input[type="text"] {
+            border: 1px solid #bdbdbd;
+        }
+
+        input[type="text"]:focus {
+            border-color: #1a237e;
+            box-shadow: 0 0 5px rgba(26, 35, 126, 0.2);
+        }
+
+        .btn-primary {
+            background-color: #0d47a1;
+            border-color: #0d47a1;
+            transition: background-color 0.3s, box-shadow 0.3s;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-primary:hover {
+            background-color: #0b3a8a;
+            border-color: #0b3a8a;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-primary:active {
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            transform: translateY(1px);
+        }
+
+        .alert-success {
+            margin-top: 1rem;
+        }
+
+        .alert-danger {
+            margin-top: 1rem;
+        }
+
+        .footer {
+            margin-top: 2rem;
+            padding: 1rem 0;
+            text-align: center;
+            color: #757575;
+            border-top: 1px solid #e0e0e0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>تایید کد OTP</h1>
+            <p>شماره تلفن: {{ phone_number }}</p>
+        </div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="alert alert-{{ category }}" role="alert">
+                {{ message }}
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+
+        <form method="POST" action="/verify_otp">
+            <div class="mb-4">
+                <label for="otp" class="form-label">کد تایید:</label>
+                <input type="text" class="form-control" id="otp" name="otp" placeholder="کد تایید را وارد کنید" required>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary btn-lg">تایید کد</button>
+            </div>
+        </form>
+        <div class="footer">
+            تمامی حقوق محفوظ است.
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
