@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>رأی‌گیری انتخابات کارگری - پروژه دماوند انرژی عسلویه</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f4f4f4;
+            font-family: 'Vazirmatn', sans-serif;
+        }
+
+        .container {
+            max-width: 960px;
+        }
+
+        .header {
+            background-color: #1a237e;
+            color: white;
+            padding: 20px 0;
+            margin-bottom: 2rem;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .candidate-card {
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: none;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: white;
+        }
+
+        .candidate-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .card-title {
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: #212121;
+        }
+
+        .btn-primary {
+            background-color: #0d47a1;
+            border-color: #0d47a1;
+            transition: background-color 0.3s, box-shadow 0.3s;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-primary:hover {
+            background-color: #0b3a8a;
+            border-color: #0b3a8a;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-primary:active {
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            transform: translateY(1px);
+        }
+
+        .footer {
+            margin-top: 2rem;
+            padding: 1rem 0;
+            text-align: center;
+            color: #757575;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: #424242;
+        }
+
+        input[type="text"] {
+            border: 1px solid #bdbdbd;
+        }
+
+        input[type="text"]:focus {
+            border-color: #1a237e;
+            box-shadow: 0 0 5px rgba(26, 35, 126, 0.2);
+        }
+
+        .form-check {
+            padding-right: 1.5em;
+        }
+
+        .alert-success {
+            margin-top: 1rem;
+        }
+
+        .alert-danger {
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h1>هلدینگ نفت، گاز و پتروشیمی</h1>
+        <p>پروژه دماوند انرژی عسلویه</p>
+    </div>
+    <div class="container mt-4">
+        <h2 class="mb-4 text-center">رأی گیری انتخابات کارگری</h2>
+
+        {% if error_message %}
+        <div class="alert alert-danger" role="alert">
+            {{ error_message }}
+        </div>
+        {% endif %}
+
+        {% if success_message %}
+        <div class="alert alert-success" role="alert">
+            {{ success_message }}
+        </div>
+        {% endif %}
+
+        <form method="post" action="/vote">
+            <div class="mb-4">
+                <label for="nationalCode" class="form-label">شماره تلفن:</label>
+                <input type="text" class="form-control" id="nationalCode" name="national_code"
+                    placeholder="شماره تلفن خود را وارد کنید" required>
+            </div>
+
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="candidates-container">
+                {% for candidate in candidates %}
+                <div class="col">
+                    <div class="card candidate-card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ candidate[1] }}</h5>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="candidate{{ candidate[0] }}"
+                                    name="candidate_ids" value="{{ candidate[0] }}">
+                                <label class="form-check-label" for="candidate{{ candidate[0] }}">انتخاب</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="mt-4 text-center">
+                <button type="submit" class="btn btn-primary btn-lg">ثبت رای</button>
+            </div>
+        </form>
+        <div class="footer">
+            تمامی حقوق محفوظ است.
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
