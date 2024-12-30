@@ -1,0 +1,6 @@
+streamlit~=1.41.1
+pandas~=2.2.3
+matplotlib~=3.10.0
+Flask~=3.1.0
+SQLAlchemy~=2.0.36
+kavenegar~=1.1.2
