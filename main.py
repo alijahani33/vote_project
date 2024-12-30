@@ -5,6 +5,7 @@ from collections import OrderedDict
 DATABASE_URL = "voting_system.db"
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'smiletothelife'
 
 def create_connection():
     conn = sqlite3.connect(DATABASE_URL)
